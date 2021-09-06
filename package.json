@@ -1,0 +1,15 @@
+{
+  "name": "comment-scraper",
+  "version": "1.0.0",
+  "description": "reddit bee movie comment scraper",
+  "main": "scraper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Justin",
+  "license": "ISC",
+  "dependencies": {
+    "mariadb": "^2.5.4",
+    "snoowrap": "^1.23.0"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "username": "username goes here",
+  "password": "password goes here",
+  "clientId": "client ID goes here",
+  "clientSecret": "client secret goes here",
+  "userAgent": "Bee Movie comment scraper <version#> by u/<username>"
+}
