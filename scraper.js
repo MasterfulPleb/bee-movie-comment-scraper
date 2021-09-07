@@ -3,7 +3,7 @@ const mariadb = require('mariadb');
 const snoowrap = require('snoowrap');
 const login = require('./login.json');
 const r = new snoowrap(login);
-const start = 'hb3v6zj'; //ID of starting comment
+const start = 'ha2i0gk'; //ID of starting comment
 
 main();
 
@@ -22,13 +22,14 @@ async function main() {
         //the meat of the script
         //goes up the chain adding every comment in the main thread to the DB
         var pushComment = setInterval(async function() {
-            if (working) { //graceful error handling cause i cant async properly
-                console.warn('async collision, sleeping')
-            } else if (r.ratelimitRemaining == 0) {
-                console.warn('ratelimit exceeded, sleeping')
-            } else try {
-                working = true
+            try {
+                if (working)
+                    throw new Error('setInterval() error: async collision. sleeping...');
+                if (r.ratelimitRemaining == 0)
+                    throw new Error('setInterval() error: ratelimit exceeded. sleeping...');
+                working = true;
                 //get next comment
+                /** @type {Promise<snoowrap.Comment>} */
                 var c = await r.getComment(nextComment).fetch();
                 //push comment to DB
                 conn.query('INSERT INTO comments ' +
@@ -46,15 +47,11 @@ async function main() {
                     clearInterval(pushComment); //stop at top comment
                 }
                 working = false
-            } catch (err) {   //catches errors (DB duplicates hopefully) that the graceful handling
-                conn.close(); //up above should have prevented, and ends the process
-                clearInterval(pushComment);
+            } catch (err) {
                 console.log(err);
             }
         }, 1020);
-    } catch (err) { //error handling
+    } catch (err) {
         console.log(err);
-        conn.close();
-        clearInterval(pushComment);
     }
 }
