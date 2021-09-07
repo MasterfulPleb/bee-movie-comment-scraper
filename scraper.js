@@ -10,8 +10,7 @@ main()
 //it doesnt need to be a function i guess but it looks more professional
 async function main() {
     var nextComment = start;
-    var testLimit = 10;
-    /** @type {Promise<mariadb.Connection>} */
+    var testLimit = 700;
     var conn;
     try {
         //connects to MariaDB
@@ -26,7 +25,6 @@ async function main() {
             //get next comment
             var c = await r.getComment(nextComment).fetch();
             //push comment to DB
-            console.log(r);
             conn.query('INSERT INTO comments ' +
                 '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
                 'VALUES("' + c.id + '","' + c.body + '","' + c.author.name + '",' +
@@ -34,6 +32,7 @@ async function main() {
                 c.edited + ',' + c.is_submitter + ',' + c.total_awards_received + ');'
             );
             nextComment = c.parent_id.slice(3);
+            console.log('passes remaining: ' + testLimit)
             testLimit--;
             if (testLimit <= 0) break
         }
@@ -44,13 +43,4 @@ async function main() {
         //close the MariaDB connection
         if (conn) conn.close();
     }
-}
-//pushes relevant pieces of data to the DB
-function pushCommentToDB(conn, c) {
-    return conn.query('INSERT INTO comments ' +
-        '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
-        'VALUES(' + c.id + ',' + c.body + ',' + c.author.name + ',' +
-        c.created_utc + ',' + c.parent_id + ',' + c.permalink + ',' +
-        c.edited + ',' + c.is_submitter + ',' + c.total_awards_received + ');'
-    );
 }
