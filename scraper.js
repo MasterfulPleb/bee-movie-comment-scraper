@@ -22,7 +22,7 @@ async function main() {
         //the meat of the script
         //goes up the chain adding every comment in the main thread to the DB
         var pushComment = setInterval(async function() {
-            if (r.ratelimitRemaining = 0) {
+            if (r.ratelimitRemaining == 0) {
                 console.log('ratelimit exceeded, sleeping')
             } else {
                 //get next comment
