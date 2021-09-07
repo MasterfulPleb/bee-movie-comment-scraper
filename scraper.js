@@ -20,7 +20,7 @@ async function main() {
         });
         //the meat of the script
         //goes up the chain adding every comment in the main thread to the DB
-        var pushComment = setInterval(async function() {//stop at top level
+        var pushComment = setInterval(async function(conn) {//stop at top level
             //get next comment
             var c = await r.getComment(nextComment).fetch();
             //push comment to DB
