@@ -24,7 +24,7 @@ async function main() {
         while (nextComment != undefined) {                                  //figure out what 'parent_id' looks like on the top level comment
             r.getComment(nextComment).fetch()
                 .then(c => {
-                    pushCommentToDB(c);
+                    pushCommentToDB(conn, c);
                     nextComment = c.parent_id.slice(3);
                 });
             testLimit--;
@@ -39,7 +39,7 @@ async function main() {
     }
 }
 //pushes relevant pieces of data to the DB
-function pushCommentToDB(c) {
+function pushCommentToDB(conn, c) {
     return conn.query('INSERT INTO comments ' +
         '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
         'VALUES(' + c.id + c.body + c.author.name + c.created_utc + c.parent_id
