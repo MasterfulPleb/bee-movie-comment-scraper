@@ -4,15 +4,15 @@ in the Bee Movie thread on r/AskOuija and adds relevant data-points to a pre-con
 https://www.reddit.com/r/AskOuija/comments/ofiegh/dam_i_forgot_the_entire_bee_movie_script_can_you/
 
 Datapoints collected are:
-comment ID
-parent comment ID
-comment body
-author
-timestamp
-permalink(from /r/... onwards)
-is edited - boolean
-is OP - boolean
-award count
+#comment ID
+#parent comment ID
+#comment body
+#author
+#timestamp
+#permalink(from /r/... onwards)
+#is edited - boolean
+#is OP - boolean
+#award count
 
 There are many more datapoints but none were relevant for my purposes.
 
