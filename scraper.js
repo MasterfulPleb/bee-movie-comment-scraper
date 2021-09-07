@@ -9,10 +9,10 @@ main()
 
 //it doesnt need to be a function i guess but it looks more professional
 async function main() {
-    let nextComment = start;
-    let testLimit = 4;
+    var nextComment = start;
+    var testLimit = 1;
     /** @type {Promise<mariadb.Connection>} */
-    let conn;
+    var conn;
     try {
         //connects to MariaDB
         conn = await mariadb.createConnection({
@@ -22,27 +22,27 @@ async function main() {
         });
         conn.query('INSERT INTO comments ' +
                         '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
-                        'VALUES(' + '"ABCD123"' + ',' + '"G"' + ',' + '"Krosis27"' + ',' +
+                        'VALUES(' + '"ABdD123"' + ',' + '"G"' + ',' + '"Krosis27"' + ',' +
                         1234567890 + ',' + '"ABCD123"' + ',' + '"/R/OUIJASHIT"' + ',' +
                         false + ',' + false + ',' + 0 + ');'
                     );
         //the meat of the script
         //goes up the chain adding every comment in the main thread to the DB
-        /*while (nextComment != undefined) {                                  //figure out what 'parent_id' looks like on the top level comment
-            r.getComment(nextComment).fetch()
-                .then((conn, c) => {
-                    //pushCommentToDB(conn, c);
-                    conn.query('INSERT INTO comments ' +
-                        '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
-                        'VALUES(' + c.id + ',' + c.body + ',' + c.author.name + ',' +
-                        c.created_utc + ',' + c.parent_id + ',' + c.permalink + ',' +
-                        c.edited + ',' + c.is_submitter + ',' + c.total_awards_received + ');'
-                    );
-                    nextComment = c.parent_id.slice(3);
-                });
+        while (nextComment != undefined) {                                  //figure out what 'parent_id' looks like on the top level comment
+            //get next comment
+            var c = await r.getComment(nextComment).fetch();
+            //push comment to DB
+            console.log(c);
+            conn.query('INSERT INTO comments ' +
+                '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
+                'VALUES(' + c.id + ',' + c.body + ',' + c.author.name + ',' +
+                c.created_utc + ',' + c.parent_id + ',' + c.permalink + ',' +
+                c.edited + ',' + c.is_submitter + ',' + c.total_awards_received + ');'
+            );
+            nextComment = c.parent_id.slice(3);
             testLimit--;
             if (testLimit <= 0) break
-        }*/
+        }
     } catch (err) {
         //error handling
         console.log(err);
