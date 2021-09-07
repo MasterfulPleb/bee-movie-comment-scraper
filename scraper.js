@@ -22,7 +22,7 @@ async function main() {
         });
         conn.query('INSERT INTO comments ' +
                         '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
-                        'VALUES(' + '"ABdD123"' + ',' + '"G"' + ',' + '"Krosis27"' + ',' +
+                        'VALUES(' + '"ABdD1k3"' + ',' + '"G"' + ',' + '"Krosis27"' + ',' +
                         1234567890 + ',' + '"ABCD123"' + ',' + '"/R/OUIJASHIT"' + ',' +
                         false + ',' + false + ',' + 0 + ');'
                     );
@@ -35,8 +35,8 @@ async function main() {
             console.log(c);
             conn.query('INSERT INTO comments ' +
                 '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
-                'VALUES(' + c.id + ',' + c.body + ',' + c.author.name + ',' +
-                c.created_utc + ',' + c.parent_id + ',' + c.permalink + ',' +
+                'VALUES("' + c.id + '","' + c.body + '","' + c.author.name + '",' +
+                c.created_utc + ',"' + c.parent_id + '","' + c.permalink + '",' +
                 c.edited + ',' + c.is_submitter + ',' + c.total_awards_received + ');'
             );
             nextComment = c.parent_id.slice(3);
