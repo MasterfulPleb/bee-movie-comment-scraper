@@ -32,7 +32,9 @@ async function main() {
                 c.edited + ',' + c.is_submitter + ',' + c.total_awards_received + ');'
             );
             nextComment = c.parent_id.slice(3);
-            console.log('passes remaining: ' + testLimit)
+            console.log('passes remaining: ' + testLimit);
+            console.log('ratelimit remaining: ' + r.ratelimitRemaining);
+            console.log('ratelimit expiration: ' + r.ratelimitExpiration);
             testLimit--;
             if (testLimit <= 0) break
         }
