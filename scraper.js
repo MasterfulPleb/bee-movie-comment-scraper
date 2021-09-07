@@ -3,7 +3,7 @@ const mariadb = require('mariadb');
 const snoowrap = require('snoowrap');
 const login = require('./login.json');
 const r = new snoowrap(login);
-const start = 'h4cpba4';//'hbuj3le';                                                    //figure out the ratelimiting
+const start = 'hbuj3le';                                                    //figure out the ratelimiting
 
 main()
 
@@ -22,11 +22,11 @@ async function main() {
         });
         //the meat of the script
         //goes up the chain adding every comment in the main thread to the DB
-        while (nextComment != undefined) {                                  //figure out what 'parent_id' looks like on the top level comment
+        while (nextComment != 'ofiegh') {//stop at top level
             //get next comment
             var c = await r.getComment(nextComment).fetch();
             //push comment to DB
-            console.log(c);
+            console.log(r);
             conn.query('INSERT INTO comments ' +
                 '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
                 'VALUES("' + c.id + '","' + c.body + '","' + c.author.name + '",' +
