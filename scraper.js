@@ -3,7 +3,7 @@ const mariadb = require('mariadb');
 const snoowrap = require('snoowrap');
 const login = require('./login.json');
 const r = new snoowrap(login);
-const start = 'hbuj3le';                                                    //figure out the ratelimiting
+const start = 'hbuj3le';
 
 main()
 
@@ -20,23 +20,21 @@ async function main() {
         });
         //the meat of the script
         //goes up the chain adding every comment in the main thread to the DB
-        while (nextComment != 'ofiegh') {//stop at top level
-            setInterval(() => {
-                //get next comment
-                r.getComment(nextComment).fetch().then(nc => {var c = nc;});
-                //push comment to DB
-                conn.query('INSERT INTO comments ' +
-                    '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
-                    'VALUES("' + c.id + '","' + c.body + '","' + c.author.name + '",' +
-                    c.created_utc + ',"' + c.parent_id.slice(3) + '","' + c.permalink + '",' +
-                    (c.edited > 0 ? 1: 0) + ',' + c.is_submitter + ',' + c.total_awards_received + ');'
-                );
-                nextComment = c.parent_id.slice(3);
-                console.log('ratelimit remaining: ' + r.ratelimitRemaining);
-                console.log('ratelimit expiration: ' + r.ratelimitExpiration);
-                console.log(r);
-            }, 1000);
-        }
+        var pushComment = setInterval(() => {//stop at top level
+            //get next comment
+            r.getComment(nextComment).fetch().then(nc => {var c = nc;});
+            //push comment to DB
+            conn.query('INSERT INTO comments ' +
+                '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
+                'VALUES("' + c.id + '","' + c.body + '","' + c.author.name + '",' +
+                c.created_utc + ',"' + c.parent_id.slice(3) + '","' + c.permalink + '",' +
+                (c.edited > 0 ? 1: 0) + ',' + c.is_submitter + ',' + c.total_awards_received + ');'
+            );
+            nextComment = c.parent_id.slice(3);
+            console.log('ratelimit remaining: ' + r.ratelimitRemaining);
+            console.log('ratelimit expiration: ' + r.ratelimitExpiration);
+            if (nextComment == 'ofiegh') clearInterval(pushComment)
+        }, 1000);
     } catch (err) {
         //error handling
         console.log(err);
@@ -45,3 +43,6 @@ async function main() {
         if (conn) conn.close();
     }
 }
+
+
+while (nextComment != 'ofiegh')
