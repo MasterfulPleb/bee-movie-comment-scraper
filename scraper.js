@@ -12,6 +12,7 @@ async function main() {
     var nextComment = start;
     var commentCount = 0
     var conn;
+    var working = false;
     try {
         //connects to MariaDB
         conn = await mariadb.createConnection({
@@ -22,9 +23,12 @@ async function main() {
         //the meat of the script
         //goes up the chain adding every comment in the main thread to the DB
         var pushComment = setInterval(async function() {
-            if (r.ratelimitRemaining == 0) {
+            if (working) {
+                console.log('async collision, sleeping')
+            } else if (r.ratelimitRemaining == 0) {
                 console.log('ratelimit exceeded, sleeping')
             } else {
+                working = true
                 //get next comment
                 var c = await r.getComment(nextComment).fetch();
                 //push comment to DB
@@ -42,6 +46,7 @@ async function main() {
                     conn.close(); //close the MariaDB connection
                     clearInterval(pushComment); //stop at top comment
                 }
+                working = false
             }
         }, 1020);
     } catch (err) {
