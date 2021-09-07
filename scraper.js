@@ -32,6 +32,7 @@ async function main() {
                 (c.edited > 0 ? 1: 0) + ',' + c.is_submitter + ',' + c.total_awards_received + ');'
             );
             nextComment = c.parent_id.slice(3);
+            commentCount++
             console.log('comments recorded:' + commentCount);
             console.log('ratelimit remaining: ' + r.ratelimitRemaining);
             if (nextComment == 'ofiegh') {
