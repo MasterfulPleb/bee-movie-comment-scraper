@@ -1,9 +1,7 @@
-This script scrapes every parent comment from a starting comment (more than 20,000 comments deep) 
-in the Bee Movie thread on r/AskOuija and adds relevant data-points to a pre-configured MariaDB.
+This script scrapes every parent comment from a starting comment in the Bee Movie thread
+on r/AskOuija and adds relevant data-points to a pre-configured MariaDB.
 
 thread https://www.reddit.com/r/AskOuija/comments/ofiegh/dam_i_forgot_the_entire_bee_movie_script_can_you/
-
-starting comment https://www.reddit.com/r/AskOuija/comments/ofiegh/dam_i_forgot_the_entire_bee_movie_script_can_you/hbwfdn3/
 
 Datapoints collected are:
 
