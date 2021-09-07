@@ -3,12 +3,12 @@ const mariadb = require('mariadb');
 const snoowrap = require('snoowrap');
 const login = require('./login.json');
 const r = new snoowrap(login);
-const start = 'hbuj3le';
+const start = 'hbxr2az';//ID of starting comment
 
 main()
 
 //it doesnt need to be a function i guess but it looks more professional
-async function main() {
+function main() {
     var nextComment = start;
     var conn;
     try {
@@ -34,7 +34,7 @@ async function main() {
             console.log('ratelimit remaining: ' + r.ratelimitRemaining);
             console.log('ratelimit expiration: ' + r.ratelimitExpiration);
             if (nextComment == 'ofiegh') clearInterval(pushComment)
-        }, 1000);
+        }, 1020);
     } catch (err) {
         //error handling
         console.log(err);
