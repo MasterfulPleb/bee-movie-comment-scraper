@@ -10,6 +10,7 @@ main();
 async function main() {
     var nextComment = start;
     var commentCount = 0
+    /** @type {Promise<mariadb.Connection>} */
     var conn;
     var working = false;
     try {
@@ -36,8 +37,12 @@ async function main() {
                     '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
                     'VALUES("' + c.id + '","' + c.body + '","' + c.author.name + '",' +
                     c.created_utc + ',"' + c.parent_id.slice(3) + '","' + c.permalink + '",' +
-                    (c.edited > 0) + ',' + c.is_submitter + ',' + c.total_awards_received + ');'
-                );
+                    (c.edited > 0) + ',' + c.is_submitter + ',' + c.total_awards_received + ');')
+                        .catch(err => {
+                            console.log(err);
+                            clearInterval(pushComment);
+                            conn.close()
+                        });
                 nextComment = c.parent_id.slice(3);
                 commentCount++
                 console.log('comments recorded: ' + commentCount);
