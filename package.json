@@ -1,6 +1,6 @@
 {
   "name": "comment-scraper",
-  "version": "1.1.31",
+  "version": "1.1.32",
   "description": "reddit bee movie comment scraper",
   "main": "scraper.js",
   "scripts": {
