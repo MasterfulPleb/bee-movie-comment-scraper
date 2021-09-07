@@ -20,9 +20,15 @@ async function main() {
             user: 'root',
             database: 'bee_movie'
         });
+        conn.query('INSERT INTO comments ' +
+                        '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
+                        'VALUES(' + 'ABCD123' + ',' + 'G' + ',' + 'Krosis27' + ',' +
+                        1234567890 + ',' + 'ABCD123' + ',' + '/R/OUIJASHIT' + ',' +
+                        false + ',' + false + ',' + 0 + ');'
+                    );
         //the meat of the script
         //goes up the chain adding every comment in the main thread to the DB
-        while (nextComment != undefined) {                                  //figure out what 'parent_id' looks like on the top level comment
+        /*while (nextComment != undefined) {                                  //figure out what 'parent_id' looks like on the top level comment
             r.getComment(nextComment).fetch()
                 .then((conn, c) => {
                     //pushCommentToDB(conn, c);
@@ -36,7 +42,7 @@ async function main() {
                 });
             testLimit--;
             if (testLimit <= 0) break
-        }
+        }*/
     } catch (err) {
         //error handling
         console.log(err);
