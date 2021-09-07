@@ -15,7 +15,7 @@ async function main() {
     try {
         //connects to MariaDB
         conn = await mariadb.createConnection({
-            socketPath: '/run/mysqld/mysqld.sock',
+            socketPath: '/var/run/mysqld/mysqld.sock',
             user: 'root',
             database: 'bee_movie'
         });
