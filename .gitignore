@@ -3,6 +3,3 @@ node_modules/
 
 # My login details
 login.json
-
-# .old files
-*.old
