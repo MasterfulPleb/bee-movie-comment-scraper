@@ -3,14 +3,14 @@ const mariadb = require('mariadb');
 const snoowrap = require('snoowrap');
 const login = require('./login.json');
 const r = new snoowrap(login);
-const start = 'hbuj3le';                                                    //figure out the ratelimiting
+const start = 'h4cpba4';//'hbuj3le';                                                    //figure out the ratelimiting
 
 main()
 
 //it doesnt need to be a function i guess but it looks more professional
 async function main() {
     var nextComment = start;
-    var testLimit = 5;
+    var testLimit = 1;
     /** @type {Promise<mariadb.Connection>} */
     var conn;
     try {
