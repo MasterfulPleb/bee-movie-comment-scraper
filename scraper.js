@@ -10,7 +10,7 @@ main()
 //it doesnt need to be a function i guess but it looks more professional
 async function main() {
     var nextComment = start;
-    var testLimit = 1;
+    var testLimit = 5;
     /** @type {Promise<mariadb.Connection>} */
     var conn;
     try {
@@ -20,12 +20,6 @@ async function main() {
             user: 'root',
             database: 'bee_movie'
         });
-        conn.query('INSERT INTO comments ' +
-                        '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
-                        'VALUES(' + '"A5dD1k3"' + ',' + '"G"' + ',' + '"Krosis27"' + ',' +
-                        1234567890 + ',' + '"ABCD123"' + ',' + '"/R/OUIJASHIT"' + ',' +
-                        false + ',' + false + ',' + 0 + ');'
-                    );
         //the meat of the script
         //goes up the chain adding every comment in the main thread to the DB
         while (nextComment != undefined) {                                  //figure out what 'parent_id' looks like on the top level comment
