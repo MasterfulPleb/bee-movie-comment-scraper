@@ -3,7 +3,7 @@ const mariadb = require('mariadb');
 const snoowrap = require('snoowrap');
 const login = require('./login.json');
 const r = new snoowrap(login);
-const start = 'h99s4fh'; //ID of starting comment
+const start = 'h8wkpet'; //ID of starting comment
 
 main();
 
@@ -25,9 +25,9 @@ async function main() {
         var pushComment = setInterval(async function() {
             try {
                 if (working)
-                    throw new Error('setInterval() error: async collision. sleeping...');
+                    throw new Error('at setInterval(): async collision. sleeping...');
                 if (r.ratelimitRemaining == 0)
-                    throw new Error('setInterval() error: ratelimit exceeded. sleeping...');
+                    throw new Error('at setInterval(): ratelimit exceeded. sleeping...');
                 working = true;
                 //get next comment
                 /** @type {Promise<snoowrap.Comment>} */
@@ -53,7 +53,7 @@ async function main() {
                 }
                 working = false
             } catch (err) {
-                console.log(err);
+                console.warn(err);
             }
         }, 1020);
     } catch (err) {
