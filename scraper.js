@@ -36,7 +36,7 @@ async function main() {
             conn.query('INSERT INTO comments ' +
                 '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
                 'VALUES("' + c.id + '","' + c.body + '","' + c.author.name + '",' +
-                c.created_utc + ',"' + c.parent_id + '","' + c.permalink + '",' +
+                c.created_utc + ',"' + c.parent_id.slice(3) + '","' + c.permalink + '",' +
                 c.edited + ',' + c.is_submitter + ',' + c.total_awards_received + ');'
             );
             nextComment = c.parent_id.slice(3);
