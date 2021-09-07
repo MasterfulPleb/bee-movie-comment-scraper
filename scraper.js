@@ -43,6 +43,3 @@ async function main() {
         if (conn) conn.close();
     }
 }
-
-
-while (nextComment != 'ofiegh')
