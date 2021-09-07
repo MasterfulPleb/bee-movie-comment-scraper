@@ -33,13 +33,13 @@ async function main() {
             );
             nextComment = c.parent_id.slice(3);
             commentCount++
-            console.log('comments recorded:' + commentCount);
+            console.log('comments recorded: ' + commentCount);
             console.log('ratelimit remaining: ' + r.ratelimitRemaining);
             if (nextComment == 'ofiegh') {
                 conn.close(); //close the MariaDB connection
                 clearInterval(pushComment); //stop at top comment
             }
-        }, 1020);
+        }, 1000);
     } catch (err) {
         //error handling
         console.log(err);
