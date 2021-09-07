@@ -22,7 +22,8 @@ async function main() {
         //goes up the chain adding every comment in the main thread to the DB
         var pushComment = setInterval(() => {//stop at top level
             //get next comment
-            r.getComment(nextComment).fetch().then(nc => {var c = nc;});
+            var c
+            r.getComment(nextComment).fetch().then(nc => c = nc);
             //push comment to DB
             conn.query('INSERT INTO comments ' +
                 '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
