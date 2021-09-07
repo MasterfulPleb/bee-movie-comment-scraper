@@ -12,17 +12,17 @@ async function main() {
     var nextComment = start;
     var conn;
     try {
-        //connects to MariaDB
-        conn = await mariadb.createConnection({
-            socketPath: '/var/run/mysqld/mysqld.sock',
-            user: 'root',
-            database: 'bee_movie'
-        });
         //the meat of the script
         //goes up the chain adding every comment in the main thread to the DB
-        var pushComment = setInterval(async function(conn) {//stop at top level
+        var pushComment = setInterval(async function() {//stop at top level
             //get next comment
             var c = await r.getComment(nextComment).fetch();
+            //connects to MariaDB
+            conn = await mariadb.createConnection({
+                socketPath: '/var/run/mysqld/mysqld.sock',
+                user: 'root',
+                database: 'bee_movie'
+            });
             //push comment to DB
             conn.query('INSERT INTO comments ' +
                 '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
