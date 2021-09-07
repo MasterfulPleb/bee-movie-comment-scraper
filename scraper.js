@@ -10,7 +10,7 @@ main();
 //it doesnt need to be a function i guess but it looks more professional
 async function main() {
     var nextComment = start;
-    var commentCount
+    var commentCount = 0
     var conn;
     try {
         //connects to MariaDB
