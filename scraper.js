@@ -23,7 +23,7 @@ async function main() {
         while (nextComment != 'ofiegh') {//stop at top level
             setInterval(() => {
                 //get next comment
-                var c = await r.getComment(nextComment).fetch();
+                r.getComment(nextComment).fetch().then(nc => {var c = nc;});
                 //push comment to DB
                 conn.query('INSERT INTO comments ' +
                     '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
