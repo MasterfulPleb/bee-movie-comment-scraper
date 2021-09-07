@@ -22,7 +22,7 @@ async function main() {
         });
         conn.query('INSERT INTO comments ' +
                         '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
-                        'VALUES(' + '"ABdD1k3"' + ',' + '"G"' + ',' + '"Krosis27"' + ',' +
+                        'VALUES(' + '"A5dD1k3"' + ',' + '"G"' + ',' + '"Krosis27"' + ',' +
                         1234567890 + ',' + '"ABCD123"' + ',' + '"/R/OUIJASHIT"' + ',' +
                         false + ',' + false + ',' + 0 + ');'
                     );
