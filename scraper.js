@@ -3,7 +3,7 @@ const mariadb = require('mariadb');
 const snoowrap = require('snoowrap');
 const login = require('./login.json');
 const r = new snoowrap(login);
-const start = 'ha2i0gk'; //ID of starting comment
+const start = 'h9w33ln'; //ID of starting comment
 
 main();
 
