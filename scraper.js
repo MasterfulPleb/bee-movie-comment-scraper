@@ -11,6 +11,7 @@ main()
 async function main() {
     let nextComment = start;
     let testLimit = 4;
+    /** @type {Promise<mariadb.Connection>} */
     let conn;
     try {
         //connects to MariaDB
@@ -23,8 +24,14 @@ async function main() {
         //goes up the chain adding every comment in the main thread to the DB
         while (nextComment != undefined) {                                  //figure out what 'parent_id' looks like on the top level comment
             r.getComment(nextComment).fetch()
-                .then(c => {
-                    pushCommentToDB(conn, c);
+                .then((conn, c) => {
+                    //pushCommentToDB(conn, c);
+                    conn.query('INSERT INTO comments ' +
+                        '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
+                        'VALUES(' + c.id + ',' + c.body + ',' + c.author.name + ',' +
+                        c.created_utc + ',' + c.parent_id + ',' + c.permalink + ',' +
+                        c.edited + ',' + c.is_submitter + ',' + c.total_awards_received + ');'
+                    );
                     nextComment = c.parent_id.slice(3);
                 });
             testLimit--;
