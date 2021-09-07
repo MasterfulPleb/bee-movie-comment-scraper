@@ -21,6 +21,7 @@ There are many more datapoints but none were relevant for my purposes.
 
 If you want to use this script for some insane reason you're going to need to register for a script
 with Reddit @ https://www.reddit.com/prefs/apps and fill out the login.json.template file with the
-relevant information, then change the name to 'login.json'. You will also need a MariaDB set up on
-the linux server running the sript, with a DB and table configured. You'll also probably need to tweak
-a bunch of code too. I dont know how you made it here but you probably dont want to use this script
+relevant information, then change the name to 'login.json'. The script ratelimits itself to about 1
+request/s. You will also need a MariaDB set up on the linux server running the sript, with a DB and
+table configured. You'll also probably need to tweak a bunch of code too. I dont know how you made
+it here but you probably dont want to use this script
