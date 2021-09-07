@@ -10,7 +10,7 @@ main()
 //it doesnt need to be a function i guess but it looks more professional
 async function main() {
     var nextComment = start;
-    var testLimit = 1;
+    var testLimit = 10;
     /** @type {Promise<mariadb.Connection>} */
     var conn;
     try {
