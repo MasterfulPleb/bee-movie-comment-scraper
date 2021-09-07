@@ -10,7 +10,6 @@ main()
 //it doesnt need to be a function i guess but it looks more professional
 async function main() {
     var nextComment = start;
-    var testLimit = 1;
     var conn;
     try {
         //connects to MariaDB
@@ -22,22 +21,21 @@ async function main() {
         //the meat of the script
         //goes up the chain adding every comment in the main thread to the DB
         while (nextComment != 'ofiegh') {//stop at top level
-            //get next comment
-            var c = await r.getComment(nextComment).fetch();
-            //push comment to DB
-            conn.query('INSERT INTO comments ' +
-                '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
-                'VALUES("' + c.id + '","' + c.body + '","' + c.author.name + '",' +
-                c.created_utc + ',"' + c.parent_id.slice(3) + '","' + c.permalink + '",' +
-                (c.edited > 0 ? 1: 0) + ',' + c.is_submitter + ',' + c.total_awards_received + ');'
-            );
-            nextComment = c.parent_id.slice(3);
-            console.log('passes remaining: ' + testLimit);
-            console.log('ratelimit remaining: ' + r.ratelimitRemaining);
-            console.log('ratelimit expiration: ' + r.ratelimitExpiration);
-            console.log(r);
-            testLimit--;
-            if (testLimit <= 0) break
+            setInterval(() => {
+                //get next comment
+                var c = await r.getComment(nextComment).fetch();
+                //push comment to DB
+                conn.query('INSERT INTO comments ' +
+                    '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
+                    'VALUES("' + c.id + '","' + c.body + '","' + c.author.name + '",' +
+                    c.created_utc + ',"' + c.parent_id.slice(3) + '","' + c.permalink + '",' +
+                    (c.edited > 0 ? 1: 0) + ',' + c.is_submitter + ',' + c.total_awards_received + ');'
+                );
+                nextComment = c.parent_id.slice(3);
+                console.log('ratelimit remaining: ' + r.ratelimitRemaining);
+                console.log('ratelimit expiration: ' + r.ratelimitExpiration);
+                console.log(r);
+            }, 1000);
         }
     } catch (err) {
         //error handling
