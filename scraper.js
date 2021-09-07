@@ -22,8 +22,8 @@ async function main() {
         });
         conn.query('INSERT INTO comments ' +
                         '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
-                        'VALUES(' + 'ABCD123' + ',' + 'G' + ',' + 'Krosis27' + ',' +
-                        1234567890 + ',' + 'ABCD123' + ',' + '/R/OUIJASHIT' + ',' +
+                        'VALUES(' + '"ABCD123"' + ',' + '"G"' + ',' + '"Krosis27"' + ',' +
+                        1234567890 + ',' + '"ABCD123"' + ',' + '"/R/OUIJASHIT"' + ',' +
                         false + ',' + false + ',' + 0 + ');'
                     );
         //the meat of the script
