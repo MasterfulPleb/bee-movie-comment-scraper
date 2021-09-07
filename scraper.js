@@ -10,7 +10,7 @@ main()
 //it doesnt need to be a function i guess but it looks more professional
 async function main() {
     var nextComment = start;
-    var testLimit = 700;
+    var testLimit = 1;
     var conn;
     try {
         //connects to MariaDB
@@ -35,6 +35,7 @@ async function main() {
             console.log('passes remaining: ' + testLimit);
             console.log('ratelimit remaining: ' + r.ratelimitRemaining);
             console.log('ratelimit expiration: ' + r.ratelimitExpiration);
+            console.log(r);
             testLimit--;
             if (testLimit <= 0) break
         }
