@@ -24,9 +24,9 @@ async function main() {
         //goes up the chain adding every comment in the main thread to the DB
         var pushComment = setInterval(async function() {
             if (working) {
-                console.log('async collision, sleeping')
+                console.warn('async collision, sleeping')
             } else if (r.ratelimitRemaining == 0) {
-                console.log('ratelimit exceeded, sleeping')
+                console.warn('ratelimit exceeded, sleeping')
             } else {
                 working = true
                 //get next comment
