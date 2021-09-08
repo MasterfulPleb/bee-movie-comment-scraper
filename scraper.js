@@ -3,7 +3,7 @@ const mariadb = require('mariadb');
 const snoowrap = require('snoowrap');
 const login = require('./login.json');
 const r = new snoowrap(login);
-const start = 'h4s2rwp'; //ID of starting comment
+const start = 'h4s2m95'; //ID of starting comment
 
 main();
 
@@ -39,7 +39,7 @@ async function main() {
                     c.created_utc + ',"' + c.parent_id.slice(3) + '","' + c.permalink + '",' +
                     (c.edited > 0) + ',' + c.is_submitter + ',' + c.total_awards_received + ');')
                         .catch(err => { //sequel error catching
-                            console.log(err);
+                            console.error(err);
                             clearInterval(pushComment);
                             conn.close()
                             process.abort
