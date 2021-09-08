@@ -32,6 +32,11 @@ async function main() {
                 //get next comment
                 /** @type {Promise<snoowrap.Comment>} */
                 var c = await r.getComment(nextComment).fetch();
+                //handles linked letters, still passes [deleted] to
+                //sequel error handler for full query printout and manual entry
+                if (c.body.length > 1) {
+                    if (c.body.slice(2, 3) == "]") c.body = c.body.slice(1, 2)
+                }
                 //push comment to DB
                 conn.query('INSERT INTO comments ' +
                     '(ID,body,author,timestamp,parentID,permalink,edited,OP,awards)' +
